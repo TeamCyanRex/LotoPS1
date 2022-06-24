@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LotoPS1.Views.FileControlFooter">
+    <HorizontalStackLayout Spacing="30" HorizontalOptions="Center">
+        <Button WidthRequest="100" Text="Browser" BackgroundColor="Turquoise" TextColor="Black"></Button>
+        <Button WidthRequest="100" Text="Open" BackgroundColor="Blue" TextColor="Black">
+            
+        </Button>
+        <Entry WidthRequest="600">
+            <Entry.Placeholder>
+                You can enter your Powershell Profile url here and Open it,or just use Browser
+            </Entry.Placeholder>
+        </Entry>
+        <Button WidthRequest="100" Text="Check" BackgroundColor="GreenYellow" TextColor="Black">
+            
+        </Button>
+        <Button WidthRequest="100" Text="Save" BackgroundColor="Maroon" TextColor="Black">
+            
+        </Button>
+        <Button WidthRequest="100" Text="Setting" BackgroundColor="Gray" HorizontalOptions="End">
+            
+        </Button>
+    </HorizontalStackLayout>
+</ContentView>

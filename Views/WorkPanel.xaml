@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LotoPS1.Views.WorkPanel">
+    <VerticalStackLayout>
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+            <SearchBar WidthRequest="500"></SearchBar>
+            <Button Text="Add" TextColor="Black" BackgroundColor="SteelBlue"></Button>
+        </HorizontalStackLayout>
+        <ScrollView>
+            <Border>
+                <CollectionView>
+
+                </CollectionView>
+            </Border>
+            
+        </ScrollView>
+    </VerticalStackLayout>
+</ContentView>

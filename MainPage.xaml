@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:LotoPS1.Views"
+             x:Class="LotoPS1.MainPage">
+    <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*">
+                    
+                </RowDefinition>
+                <RowDefinition Height="3*">
+
+                </RowDefinition>
+                <RowDefinition Height="5*">
+
+                </RowDefinition>
+                <RowDefinition Height="1*">
+
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*">
+
+                </ColumnDefinition>
+                <ColumnDefinition Width="*">
+
+                </ColumnDefinition>
+                <ColumnDefinition Width="*">
+
+                </ColumnDefinition>
+                <ColumnDefinition Width="*">
+
+                </ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <views:BrandName  Grid.Row="0" Grid.ColumnSpan="4"></views:BrandName>
+            <views:ScopeChoosePanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1"></views:ScopeChoosePanel>
+            <views:WorkPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"></views:WorkPanel>
+            <views:OriginProfileViewer Grid.Row="2" Grid.ColumnSpan="2"></views:OriginProfileViewer>
+            <views:NowProfileViewer Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"></views:NowProfileViewer>
+            <views:FileControlFooter VerticalOptions="Center" Margin="50,50" Grid.Row="3" Grid.ColumnSpan="4"></views:FileControlFooter>
+
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
