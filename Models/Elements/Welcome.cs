@@ -8,5 +8,7 @@ namespace LotoPS1.Models.Elements
 {
     internal class Welcome
     {
+        public readonly string Identity = "#readonly";
+        public List<string> Commands;
     }
 }

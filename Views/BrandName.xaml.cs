@@ -5,5 +5,6 @@ public partial class BrandName : ContentView
 	public BrandName()
 	{
 		InitializeComponent();
+		
 	}
 }

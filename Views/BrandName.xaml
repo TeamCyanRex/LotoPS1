@@ -4,6 +4,7 @@
              x:Class="LotoPS1.Views.BrandName">
     <HorizontalStackLayout >
         <Label 
+            x:Name="label"
             FontSize="Header"
             FontAttributes="Bold"
             Text="Loto PS1"

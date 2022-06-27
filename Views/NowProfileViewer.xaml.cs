@@ -6,4 +6,14 @@ public partial class NowProfileViewer : ContentView
 	{
 		InitializeComponent();
 	}
+    #region Components Reference
+    MainPage mainPage = null;
+    #endregion
+    #region Datas
+   
+    #endregion
+    #region View Methods 
+    #endregion
+    #region Auxiliary Functions
+    #endregion
 }
