@@ -9,8 +9,8 @@
             FontSize="Subtitle"
             VerticalOptions="End" 
             HorizontalOptions="Center" />
-        <ScrollView Margin="40">
-            <Editor HeightRequest="400" >
+        <ScrollView Margin="40" >
+            <Editor HeightRequest="400" Placeholder="Waiting for load profile.......">
                 
             </Editor>
         </ScrollView>
