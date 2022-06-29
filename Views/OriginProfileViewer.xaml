@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LotoPS1.ViewModels"
              x:Class="LotoPS1.Views.OriginProfileViewer">
+    <ContentView.BindingContext>
+        <vm:OriginProfileViewerVM></vm:OriginProfileViewerVM>
+    </ContentView.BindingContext>
     <VerticalStackLayout>
         <Label 
             Text="Origin"
@@ -10,7 +14,7 @@
             VerticalOptions="End" 
             HorizontalOptions="Center" />
         <ScrollView Margin="40" >
-            <Editor HeightRequest="400" Placeholder="Waiting for load profile.......">
+            <Editor Text="{Binding FormatedCode}" x:Name="editor" IsReadOnly="True" HeightRequest="400" Placeholder="Waiting for load profile.......">
                 
             </Editor>
         </ScrollView>

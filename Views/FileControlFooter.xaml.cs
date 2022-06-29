@@ -1,23 +1,27 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using LotoPS1.Services;
+using LotoPS1.ViewModels;
 namespace LotoPS1.Views;
 
 public partial class FileControlFooter : ContentView
 {
     #region Components Reference
     MainPage mainPage = null;
+    NowProfileViewer nowProfileViewer = null;
+    OriginProfileViewer originProfileViewer = null;
     #endregion
     public FileControlFooter(){
         InitializeComponent();
     }
     #region File control footer
     #region Datas
-    
+    public FileInfo ProfileFileUrl=null;
     #endregion
     #region View Methods 
     public void DefaultClicked(object sender, EventArgs args)
     {
-
+        SetProfileViewer(SetDefaultProfileFile());
     }
     public async void BrowserClicked(object sender, EventArgs args)
     {
@@ -34,13 +38,24 @@ public partial class FileControlFooter : ContentView
             PickerTitle = "Please select a Powershell file",
             FileTypes = customFileType,
         };
-        await PickProfileFile(options);
+        var file=await PickProfileFile(options);
+        fileUrl.Text = file.FullPath;
+        SetProfileViewer(new FileInfo(file.FullPath));
 
     }
-    public void OpenClicked(object sender, EventArgs args)
+    public async void OpenClicked(object sender, EventArgs args)
     {
-
+        if (fileUrl.Text==null||fileUrl.Text=="") {
+            return;
+        }
+        ProfileFileUrl =await CreateProfileFile(fileUrl.Text);
+        fileUrl.Text = ProfileFileUrl!=null?ProfileFileUrl.ToString():"";
+        if (fileUrl.Text != "") {
+            SetProfileViewer(ProfileFileUrl);
+        }
     }
+
+   
     public void CheckClicked(object sender, EventArgs args)
     {
 
@@ -55,6 +70,24 @@ public partial class FileControlFooter : ContentView
 
     #endregion
     #region Auxiliary Functions
+    private void SetProfileViewer(FileInfo profileFileUrl)
+    {
+        LoadNowProfileViewer();
+        LoadOriginProfileViewer();
+        var stream=profileFileUrl.OpenText().ReadToEnd();
+        Editor now=(Editor)nowProfileViewer.FindByName("editor");
+        Editor origin = (Editor)originProfileViewer.FindByName("editor");
+        now.Text = stream;
+        origin.Text = stream;
+
+    }
+    private static FileInfo SetDefaultProfileFile() {
+        string path=PowershellInstance.DefaultPowershellProfileString();
+        if (!File.Exists(path)) {
+            File.Create(path);
+        }
+        return new FileInfo(path);
+    }
     public async Task<FileResult> PickProfileFile(PickOptions options)
     {
         try
@@ -62,16 +95,8 @@ public partial class FileControlFooter : ContentView
             var result = await FilePicker.Default.PickAsync(options);
             if (result != null)
             {
-                if (result.FileName.EndsWith("ps1", StringComparison.OrdinalIgnoreCase))
-                {
-                    using var stream = await result.OpenReadAsync();
-
-                    //originProfileBuffer.Append(stream);
-                    //nowProfileBuffer.Append(stream);
-                }
+               return result;
             }
-
-            return result;
         }
         catch (Exception ex)
         {
@@ -86,16 +111,66 @@ public partial class FileControlFooter : ContentView
             mainPage = (MainPage)(Parent.Parent.Parent);
         }
     }
-    #endregion
-    #endregion
-
-    public void GetLabel(object sender, EventArgs args) {
-        LoadMainPage();
-       var brandName =(BrandName)mainPage.FindByName("brandName");
-       var label=(Label)brandName.FindByName("label");
-       string msg=label.Text;
-       mainPage.DisplayAlert("Hi",msg,"Ok");
-
+    private bool IsSuffixPS1(string path) {
+        var suffix=Path.GetExtension(path);
+        if (suffix == null)
+        {
+            return false;
+        }
+        else {
+            return suffix.ToLower() == ".ps1";
+        }
     }
+    private async Task<FileInfo> CreateProfileFile(string pathString) {
+        try
+        {
+            LoadMainPage();
+            if (!File.Exists(pathString))
+            {
+                if (!IsSuffixPS1(pathString)) {
+                    if (await mainPage.DisplayAlert("This Path Url does not point to a Powershell file", "Do you want to Add a \".ps1\" suffix to path?(if No,this open will be cancel)", "Yes", "No"))
+                    {
+                        pathString += ".ps1";
+                        return await CreateProfileFile(pathString);
+                    }
+                    else {
+                        return null;
+                    }
+                }
+
+                if (await mainPage.DisplayAlert("We can't find this File", "Can we create a new file named this?(if No,this open will be cancel)", "Yes", "No"))
+                {
+                    File.Create(pathString).Close();
+                }
+                else {
+                    return null;
+                }
+               
+            }
+            var file = new FileInfo(pathString);
+            return file;
+        }
+        catch (Exception ex)
+        {
+            bool res =await mainPage.DisplayAlert("Solve Path url failed!","Do you want to accept default(Recommend) profile path?","Yes","No");
+            return res?SetDefaultProfileFile():null;
+        }
+    }
+    private void LoadNowProfileViewer() {
+        if (nowProfileViewer == null) {
+            LoadMainPage();
+            nowProfileViewer=(NowProfileViewer)mainPage.FindByName("now");
+        }
+        
+    }
+    private void LoadOriginProfileViewer() {
+        if (originProfileViewer == null) { 
+            LoadMainPage() ;
+            originProfileViewer = (OriginProfileViewer)mainPage.FindByName("origin");
+        }
+    }
+    #endregion
+    #endregion
+
    
 }

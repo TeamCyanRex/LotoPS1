@@ -1,4 +1,5 @@
-﻿namespace LotoPS1;
+﻿
+namespace LotoPS1;
 
 public partial class MainPage : ContentPage
 {
@@ -11,5 +12,6 @@ public partial class MainPage : ContentPage
     {
         await DisplayAlert("Something wrong....", message, "Ok");
     }
+    
 }
 

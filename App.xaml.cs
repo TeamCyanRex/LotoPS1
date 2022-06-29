@@ -1,4 +1,5 @@
-﻿namespace LotoPS1;
+﻿
+namespace LotoPS1;
 
 public partial class App : Application
 {

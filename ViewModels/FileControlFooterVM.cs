@@ -19,7 +19,7 @@ namespace LotoPS1.ViewModels
 
 
         #region Data
-        private FileInfo _profileFile;
+
         private string _fileName;
         public string FileName
         {

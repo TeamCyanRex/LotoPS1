@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LotoPS1.ViewModels"
              x:Class="LotoPS1.Views.BrandName">
+    <ContentView.BindingContext>
+        <vm:BrandNameVM></vm:BrandNameVM>
+    </ContentView.BindingContext>
     <HorizontalStackLayout >
         <Label 
             x:Name="label"

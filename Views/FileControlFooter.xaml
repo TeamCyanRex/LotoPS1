@@ -3,15 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:LotoPS1.ViewModels"
              x:Class="LotoPS1.Views.FileControlFooter">
+    <ContentView.BindingContext>
+        <vm:FileControlFooterVM></vm:FileControlFooterVM>
+    </ContentView.BindingContext>
     <HorizontalStackLayout Spacing="30" HorizontalOptions="Center">
-        <Button WidthRequest="100" Text="Default(✨)" BackgroundColor="LightPink" TextColor="Orange" Clicked="DefaultClicked"></Button> 
+        <Button WidthRequest="100" Text="Default✨" BackgroundColor="LightPink" TextColor="Black" Clicked="DefaultClicked"></Button> 
         <Button WidthRequest="100" Text="Browser" BackgroundColor="Turquoise" TextColor="Black" Clicked="BrowserClicked">
  
         </Button>
         <Button WidthRequest="100" Text="Open" BackgroundColor="Blue" TextColor="Black" Clicked="OpenClicked">
             
         </Button>
-        <Entry WidthRequest="600">
+        <Entry x:Name="fileUrl" Text="{Binding FileName}" WidthRequest="600">
             <Entry.Placeholder>
                 You can enter your Powershell Profile url here and Open it,or just use Browser
             </Entry.Placeholder>

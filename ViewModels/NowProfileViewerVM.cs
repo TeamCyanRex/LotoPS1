@@ -29,6 +29,16 @@ namespace LotoPS1.ViewModels
                 nowProfileBuffer.Append(value);
             }
         }
+
+        private StringBuilder formatedCode=new StringBuilder();
+        public string FormatedCode { 
+            get { return formatedCode.ToString(); }
+            set
+            {
+                formatedCode.Clear();
+                formatedCode.Append(value);
+            }
+        }
         #endregion
 
         #region Methods 

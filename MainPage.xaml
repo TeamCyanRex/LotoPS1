@@ -4,9 +4,6 @@
              xmlns:views="clr-namespace:LotoPS1.Views"
              xmlns:vm="clr-namespace:LotoPS1.ViewModels"
              x:Class="LotoPS1.MainPage">
-    <ContentPage.BindingContext>
-        <vm:MainViewModel x:Name="mainVm"></vm:MainViewModel>
-    </ContentPage.BindingContext>
     <ScrollView>
         <Grid>
             <Grid.RowDefinitions>
@@ -38,12 +35,12 @@
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
             <views:BrandName BindingContext="mainVm" x:Name="brandName" Grid.Row="0" Grid.ColumnSpan="4"></views:BrandName>
-            <views:ScopeChoosePanel BindingContext="mainVm"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></views:ScopeChoosePanel>
-            <views:WorkPanel BindingContext="mainVm" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"></views:WorkPanel>
-            <views:OriginProfileViewer BindingContext="mainVm" Grid.Row="2" Grid.ColumnSpan="2">
+            <views:ScopeChoosePanel BindingContext="mainVm" x:Name="scope" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></views:ScopeChoosePanel>
+            <views:WorkPanel BindingContext="mainVm" x:Name="workPanel" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"></views:WorkPanel>
+            <views:OriginProfileViewer BindingContext="mainVm" x:Name="origin" Grid.Row="2" Grid.ColumnSpan="2">
             </views:OriginProfileViewer>
-            <views:NowProfileViewer BindingContext="mainVm" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"></views:NowProfileViewer>
-            <views:FileControlFooter BindingContext="mainVm" VerticalOptions="Center" Margin="50,50" Grid.Row="3" Grid.ColumnSpan="4"></views:FileControlFooter>
+            <views:NowProfileViewer BindingContext="mainVm" x:Name="now" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"></views:NowProfileViewer>
+            <views:FileControlFooter BindingContext="mainVm" x:Name="footer" VerticalOptions="Center" Margin="50,50" Grid.Row="3" Grid.ColumnSpan="4"></views:FileControlFooter>
 
         </Grid>
     </ScrollView>
