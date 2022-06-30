@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace LotoPS1.Interface
+namespace LotoPS1.Models
 {
-    internal interface IElementCodeChanger
+    internal class PrimitiveModel
     {
-        void FromCode(string code);
-        string ToCode();
     }
 }

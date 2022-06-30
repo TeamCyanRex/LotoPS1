@@ -39,6 +39,9 @@ public partial class FileControlFooter : ContentView
             FileTypes = customFileType,
         };
         var file=await PickProfileFile(options);
+        if (file == null) {
+            return;
+        }
         fileUrl.Text = file.FullPath;
         SetProfileViewer(new FileInfo(file.FullPath));
 
@@ -75,10 +78,15 @@ public partial class FileControlFooter : ContentView
         LoadNowProfileViewer();
         LoadOriginProfileViewer();
         var stream=profileFileUrl.OpenText().ReadToEnd();
-        Editor now=(Editor)nowProfileViewer.FindByName("editor");
+        fileUrl.Text=profileFileUrl.FullName;
+        /*
+         Editor now=(Editor)nowProfileViewer.FindByName("editor");
         Editor origin = (Editor)originProfileViewer.FindByName("editor");
         now.Text = stream;
         origin.Text = stream;
+        */
+        originProfileViewer.PrimitiveBuffer = stream;
+        nowProfileViewer.PrimitiveBuffer = stream;
 
     }
     private static FileInfo SetDefaultProfileFile() {

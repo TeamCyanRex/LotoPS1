@@ -19,6 +19,7 @@ namespace LotoPS1.ViewModels
 
 
         #region Data
+        
         private StringBuilder nowProfileBuffer => nowProfileBuffer ?? new StringBuilder();
         public string NowProfileBuffer
         {
