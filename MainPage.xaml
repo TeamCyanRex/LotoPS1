@@ -1,46 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:LotoPS1.Views"
-             xmlns:vm="clr-namespace:LotoPS1.ViewModels"
-             x:Class="LotoPS1.MainPage">
+<ContentPage
+    x:Class="LotoPS1.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:LotoPS1.Views"
+    xmlns:vm="clr-namespace:LotoPS1.ViewModels">
     <ScrollView>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*">
-
-                </RowDefinition>
-                <RowDefinition Height="3*">
-
-                </RowDefinition>
-                <RowDefinition Height="5*">
-
-                </RowDefinition>
-                <RowDefinition Height="1*">
-
-                </RowDefinition>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="5*" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*">
-
-                </ColumnDefinition>
-                <ColumnDefinition Width="*">
-
-                </ColumnDefinition>
-                <ColumnDefinition Width="*">
-
-                </ColumnDefinition>
-                <ColumnDefinition Width="*">
-
-                </ColumnDefinition>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <views:BrandName BindingContext="mainVm" x:Name="brandName" Grid.Row="0" Grid.ColumnSpan="4"></views:BrandName>
-            <views:ScopeChoosePanel BindingContext="mainVm" x:Name="scope" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></views:ScopeChoosePanel>
-            <views:WorkPanel BindingContext="mainVm" x:Name="workPanel" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"></views:WorkPanel>
-            <views:OriginProfileViewer BindingContext="mainVm"  x:Name="origin" Grid.Row="2" Grid.ColumnSpan="2">
-            </views:OriginProfileViewer>
-            <views:NowProfileViewer BindingContext="mainVm" x:Name="now" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"></views:NowProfileViewer>
-            <views:FileControlFooter BindingContext="mainVm" x:Name="footer" VerticalOptions="Center" Margin="50,50" Grid.Row="3" Grid.ColumnSpan="4"></views:FileControlFooter>
+            <views:BrandName
+                x:Name="brandName"
+                Grid.Row="0"
+                Grid.ColumnSpan="4"
+                BindingContext="mainVm" />
+            <views:ScopeChoosePanel
+                x:Name="scope"
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                BindingContext="mainVm" />
+            <views:WorkPanel
+                x:Name="workPanel"
+                Grid.Row="1"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                BindingContext="mainVm" />
+            <views:OriginProfileViewer
+                x:Name="origin"
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                BindingContext="mainVm" />
+            <views:NowProfileViewer
+                x:Name="now"
+                Grid.Row="2"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                BindingContext="mainVm" />
+            <views:FileControlFooter
+                x:Name="footer"
+                Grid.Row="3"
+                Grid.ColumnSpan="4"
+                Margin="50,50"
+                BindingContext="mainVm"
+                VerticalOptions="Center" />
 
         </Grid>
     </ScrollView>

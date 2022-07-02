@@ -11,12 +11,13 @@ public partial class FileControlFooter : ContentView
     NowProfileViewer nowProfileViewer = null;
     OriginProfileViewer originProfileViewer = null;
     #endregion
-    public FileControlFooter(){
+    public FileControlFooter()
+    {
         InitializeComponent();
     }
     #region File control footer
     #region Datas
-    public FileInfo ProfileFileUrl=null;
+    public FileInfo ProfileFileUrl = null;
     #endregion
     #region View Methods 
     public void DefaultClicked(object sender, EventArgs args)
@@ -38,8 +39,9 @@ public partial class FileControlFooter : ContentView
             PickerTitle = "Please select a Powershell file",
             FileTypes = customFileType,
         };
-        var file=await PickProfileFile(options);
-        if (file == null) {
+        var file = await PickProfileFile(options);
+        if (file == null)
+        {
             return;
         }
         fileUrl.Text = file.FullPath;
@@ -48,17 +50,19 @@ public partial class FileControlFooter : ContentView
     }
     public async void OpenClicked(object sender, EventArgs args)
     {
-        if (fileUrl.Text==null||fileUrl.Text=="") {
+        if (fileUrl.Text == null || fileUrl.Text == "")
+        {
             return;
         }
-        ProfileFileUrl =await CreateProfileFile(fileUrl.Text);
-        fileUrl.Text = ProfileFileUrl!=null?ProfileFileUrl.ToString():"";
-        if (fileUrl.Text != "") {
+        ProfileFileUrl = await CreateProfileFile(fileUrl.Text);
+        fileUrl.Text = ProfileFileUrl != null ? ProfileFileUrl.ToString() : "";
+        if (fileUrl.Text != "")
+        {
             SetProfileViewer(ProfileFileUrl);
         }
     }
 
-   
+
     public void CheckClicked(object sender, EventArgs args)
     {
 
@@ -77,8 +81,8 @@ public partial class FileControlFooter : ContentView
     {
         LoadNowProfileViewer();
         LoadOriginProfileViewer();
-        var stream=profileFileUrl.OpenText().ReadToEnd();
-        fileUrl.Text=profileFileUrl.FullName;
+        var stream = profileFileUrl.OpenText().ReadToEnd();
+        fileUrl.Text = profileFileUrl.FullName;
         /*
          Editor now=(Editor)nowProfileViewer.FindByName("editor");
         Editor origin = (Editor)originProfileViewer.FindByName("editor");
@@ -89,9 +93,11 @@ public partial class FileControlFooter : ContentView
         nowProfileViewer.PrimitiveBuffer = stream;
 
     }
-    private static FileInfo SetDefaultProfileFile() {
-        string path=PowershellInstance.DefaultPowershellProfileString();
-        if (!File.Exists(path)) {
+    private static FileInfo SetDefaultProfileFile()
+    {
+        string path = PowershellInstance.DefaultPowershellProfileString();
+        if (!File.Exists(path))
+        {
             File.Create(path);
         }
         return new FileInfo(path);
@@ -103,7 +109,7 @@ public partial class FileControlFooter : ContentView
             var result = await FilePicker.Default.PickAsync(options);
             if (result != null)
             {
-               return result;
+                return result;
             }
         }
         catch (Exception ex)
@@ -114,34 +120,41 @@ public partial class FileControlFooter : ContentView
 
         return null;
     }
-    private void LoadMainPage() {
-        if (mainPage == null) {
+    private void LoadMainPage()
+    {
+        if (mainPage == null)
+        {
             mainPage = (MainPage)(Parent.Parent.Parent);
         }
     }
-    private bool IsSuffixPS1(string path) {
-        var suffix=Path.GetExtension(path);
+    private bool IsSuffixPS1(string path)
+    {
+        var suffix = Path.GetExtension(path);
         if (suffix == null)
         {
             return false;
         }
-        else {
+        else
+        {
             return suffix.ToLower() == ".ps1";
         }
     }
-    private async Task<FileInfo> CreateProfileFile(string pathString) {
+    private async Task<FileInfo> CreateProfileFile(string pathString)
+    {
         try
         {
             LoadMainPage();
             if (!File.Exists(pathString))
             {
-                if (!IsSuffixPS1(pathString)) {
+                if (!IsSuffixPS1(pathString))
+                {
                     if (await mainPage.DisplayAlert("This Path Url does not point to a Powershell file", "Do you want to Add a \".ps1\" suffix to path?(if No,this open will be cancel)", "Yes", "No"))
                     {
                         pathString += ".ps1";
                         return await CreateProfileFile(pathString);
                     }
-                    else {
+                    else
+                    {
                         return null;
                     }
                 }
@@ -150,35 +163,40 @@ public partial class FileControlFooter : ContentView
                 {
                     File.Create(pathString).Close();
                 }
-                else {
+                else
+                {
                     return null;
                 }
-               
+
             }
             var file = new FileInfo(pathString);
             return file;
         }
         catch (Exception ex)
         {
-            bool res =await mainPage.DisplayAlert("Solve Path url failed!","Do you want to accept default(Recommend) profile path?","Yes","No");
-            return res?SetDefaultProfileFile():null;
+            bool res = await mainPage.DisplayAlert("Solve Path url failed!", "Do you want to accept default(Recommend) profile path?", "Yes", "No");
+            return res ? SetDefaultProfileFile() : null;
         }
     }
-    private void LoadNowProfileViewer() {
-        if (nowProfileViewer == null) {
+    private void LoadNowProfileViewer()
+    {
+        if (nowProfileViewer == null)
+        {
             LoadMainPage();
-            nowProfileViewer=(NowProfileViewer)mainPage.FindByName("now");
+            nowProfileViewer = (NowProfileViewer)mainPage.FindByName("now");
         }
-        
+
     }
-    private void LoadOriginProfileViewer() {
-        if (originProfileViewer == null) { 
-            LoadMainPage() ;
+    private void LoadOriginProfileViewer()
+    {
+        if (originProfileViewer == null)
+        {
+            LoadMainPage();
             originProfileViewer = (OriginProfileViewer)mainPage.FindByName("origin");
         }
     }
     #endregion
     #endregion
 
-   
+
 }

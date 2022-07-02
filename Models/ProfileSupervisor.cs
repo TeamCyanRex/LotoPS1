@@ -8,13 +8,13 @@ namespace LotoPS1.Models
 {
     internal class ProfileSupervisor
     {
-        public FormattedModel model;
+        public FormattedModel model = new();
         public ProfileSupervisor(PrimitiveModel primitiveModel) {
-
-
+            model.welcomeModel = primitiveModel.welcomeModel;
+            model.aliasesModel = primitiveModel.aliasesModel;
         }
         public string ToFormattedCode(){
-            return "Bong!";
+            return model.welcomeModel.ToString() + "\n" + model.aliasesModel.ToString();
         }
     }
 }
