@@ -14,12 +14,13 @@ namespace LotoPS1.Models
         string welcomePshPattern = @"#welcome\s*([\w[\""\!\'\s]*]*)";
         string aliasesPshPattern = @"#aliases\s*([\w\s\-\:\\\.]*)";
         string settingsPshPattern = @"#settings\s*([\w\-\s]+)";
+        string modulesPshPattern = "";
         // primCode 整个psh文件内容
         public ElementsParser(string primCode)
         {
             HandleAliases(primCode);
             HandleWelcome(primCode);
-            //HandleSettings(primCode);
+            HandleSettings(primCode);
             //HandleModules(primCode);
         }
         void HandleWelcome(string code)
@@ -28,7 +29,7 @@ namespace LotoPS1.Models
             StringBuilder sb = new StringBuilder();
             foreach (Match match in tmp)
             {
-                sb.AppendLine(match.Value);
+                sb.AppendLine(match.Groups[1].ToString());
             }
             WelcomeParser(sb.ToString());
         }
@@ -39,7 +40,7 @@ namespace LotoPS1.Models
             StringBuilder sb = new StringBuilder();
             foreach (Match match in tmp)
             {
-                sb.AppendLine(match.Value);
+                sb.AppendLine(match.Groups[1].ToString());
             }
             SettingsParser(sb.ToString());
         }
@@ -85,7 +86,7 @@ namespace LotoPS1.Models
              */
             string aliasesModelPattern = @"([\w\-]+)\s+([\w\-]+)\s+([\w\:\\\.]+)";
             var res = Regex.Matches(primCode, aliasesModelPattern);
-            if(res == null) return;
+            if (res == null) return;
             foreach (Match match in res)
             {
                 var tmp = match.Groups;
@@ -94,9 +95,46 @@ namespace LotoPS1.Models
                 model.aliasesModel.AddAliase(new Aliases.Alias(target, source));
             }
         }
-        void SettingsParser(string primCode)
+        void SettingsParser(string psg)
         {
-
+            var tmp = Regex.Matches(psg, @"(.+)\r\n");
+            foreach (var item in tmp)
+            {
+                var t = item.ToString();
+                ParseSettings(t);
+            }
+        }
+        // Single Line
+        void ParseSettings(string code)
+        {
+            var captureCommand = Regex.Matches(code, @"^([\w\-]+)");
+            string command = captureCommand.ElementAt(0).Value;
+            var captureRes = Regex.Matches(code, @"(?:[\w\-]+)\s(.+)\r");
+            var props = captureRes.ElementAt(0).Groups[1].ToString();
+            if (JudegeSingleCommand(props))
+            {
+                Settings.Setting setting = new(command, true);
+                string prop = props;
+                setting.SetSingleProp(prop);
+                model.settingsModel.SettingAdd(setting);
+            }
+            else
+            {
+                Settings.Setting setting = new(command, false);
+                var divProps = Regex.Matches(props, @"-([\w\-]+)\s+([\w]+)");
+                foreach(Match match in divProps)
+                {
+                    var item = match.Groups;
+                    Settings.SettingProp settingProp = new(item[1].Value, item[2].Value);
+                    setting.SettingPropAdd(settingProp);
+                }
+                model.settingsModel.SettingAdd(setting);
+            }
+        }
+        bool JudegeSingleCommand(string cmd)
+        {
+            var captureWords = Regex.Matches(cmd, @"([\w\-]+)");
+            return captureWords.Count == 1;
         }
     }
 }

@@ -12,9 +12,10 @@ namespace LotoPS1.Models
         public ProfileSupervisor(PrimitiveModel primitiveModel) {
             model.welcomeModel = primitiveModel.welcomeModel;
             model.aliasesModel = primitiveModel.aliasesModel;
+            model.settingsModel = primitiveModel.settingsModel;
         }
         public string ToFormattedCode(){
-            return model.welcomeModel.ToString() + "\n" + model.aliasesModel.ToString();
+            return model.welcomeModel.ToString() + "\n" + model.aliasesModel.ToString() + "\n" + model.settingsModel.ToString();
         }
     }
 }

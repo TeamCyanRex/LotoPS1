@@ -22,7 +22,7 @@ namespace LotoPS1.Models.Elements
             }
             public override string ToString()
             {
-                return $" {Command} {Target} {Source} ";
+                return $"{Command} {Target} {Source} ";
             }
         }
         public readonly string Identity = "#aliases";
