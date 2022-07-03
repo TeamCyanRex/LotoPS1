@@ -40,6 +40,7 @@ namespace LotoPS1.Models.Elements
         public override string ToString()
         {
             StringBuilder sb = new();
+            sb.AppendLine(Identity);
             foreach(var item in Commands)
             {
                 sb.AppendLine(item.ToString());

@@ -13,6 +13,7 @@ namespace LotoPS1.Models
         public PrimitiveModel model = new();
         string welcomePshPattern = @"#welcome\s*([\w[\""\!\'\s]*]*)";
         string aliasesPshPattern = @"#aliases\s*([\w\s\-\:\\\.]*)";
+        string settingsPshPattern = @"#settings\s*([\w\-\s]+)";
         // primCode 整个psh文件内容
         public ElementsParser(string primCode)
         {
@@ -34,13 +35,13 @@ namespace LotoPS1.Models
         void HandleSettings(string code)
         {
 
-            var tmp = Regex.Matches(code, welcomePshPattern);
+            var tmp = Regex.Matches(code, settingsPshPattern);
             StringBuilder sb = new StringBuilder();
             foreach (Match match in tmp)
             {
                 sb.AppendLine(match.Value);
             }
-            WelcomeParser(sb.ToString());
+            SettingsParser(sb.ToString());
         }
         void HandleAliases(string code)
         {
@@ -49,8 +50,7 @@ namespace LotoPS1.Models
             foreach (Match match in tmp)
             {
                 var value = match.Groups;
-                //sb.AppendLine(value[1].ToString());
-                sb.Append(value[1].ToString() + "\n");
+                sb.AppendLine(value[1].ToString());
             }
             AliasesParser(sb.ToString());
         }
@@ -83,8 +83,9 @@ namespace LotoPS1.Models
             New-Alias py3 D:\Zeta_tools\py\python.exe
             New-Alias imdbg D:\Zeta_Tools\ImmunityDebugger\ImmunityDebugger.exe
              */
-            string aliasesModelPattern = @"^([\w\-]+)\s+([\w\-]+)\s+([\w\:\\\.]+)";
+            string aliasesModelPattern = @"([\w\-]+)\s+([\w\-]+)\s+([\w\:\\\.]+)";
             var res = Regex.Matches(primCode, aliasesModelPattern);
+            if(res == null) return;
             foreach (Match match in res)
             {
                 var tmp = match.Groups;
@@ -92,6 +93,10 @@ namespace LotoPS1.Models
                 string source = tmp[3].ToString();
                 model.aliasesModel.AddAliase(new Aliases.Alias(target, source));
             }
+        }
+        void SettingsParser(string primCode)
+        {
+
         }
     }
 }
